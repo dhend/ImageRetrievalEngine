@@ -10,7 +10,7 @@
 
 void ColorAutoCorrelogram::CreateColorAutoCorrelogram(const cv::Mat& img, std::vector<double>& correlogram) {
     cv::Mat img_HSV;
-    const int distance = 10;
+    const int distance = 5;
     const int color_num = 60;
     std::vector<int> pix_num(color_num, 0);
     std::vector<cv::Mat> splited;
@@ -31,10 +31,11 @@ void ColorAutoCorrelogram::CreateColorAutoCorrelogram(const cv::Mat& img, std::v
                 for (int up_row = i - d, col = j - d; col < j + d; ++col) {
                     if (up_row < 0) {
                         break;
-                    } if (col < 0 || col > img_H.cols) {
+                    } if (col < 0 || col >= img_H.cols) {
                         continue;
                     }
-                    int color_d = img_H.at<int>(up_row, col);
+                    uchar color_uchar = img_H.at<uchar>(up_row, col);
+					int color_d = ((int) color_uchar) / 3; 
                     if (color == color_d) {
                         samecolor_num++;
                     }
@@ -42,12 +43,13 @@ void ColorAutoCorrelogram::CreateColorAutoCorrelogram(const cv::Mat& img, std::v
                 }
                 //down boudary
                 for (int down_row = i + d, col = j - d; col < j + d; ++col) {
-                    if (down_row > img_H.rows) {
+                    if (down_row >= img_H.rows) {
                         break;
-                    } if (col < 0 || col > img_H.cols) {
+                    } if (col < 0 || col >= img_H.cols) {
                         continue;
                     }
-                    int color_d = img_H.at<int>(down_row, col);
+                    uchar color_uchar = img_H.at<uchar>(down_row, col);
+					int color_d = ((int) color_uchar) / 3; 
                     if (color == color_d) {
                         samecolor_num++;
                     }
@@ -57,10 +59,11 @@ void ColorAutoCorrelogram::CreateColorAutoCorrelogram(const cv::Mat& img, std::v
                 for (int row = i - d, left_col = j - d; row < i + d; ++row) {
                     if (left_col < 0) {
                         break;
-                    } if (row < 0 || row > img_H.rows) {
+                    } if (row < 0 || row >= img_H.rows) {
                         continue;
                     }
-                    int color_d = img_H.at<int>(row, left_col);
+                    uchar color_uchar = img_H.at<uchar>(row, left_col);
+					int color_d = ((int) color_uchar) / 3; 
                     if (color == color_d) {
                         samecolor_num++;
                     }
@@ -68,12 +71,13 @@ void ColorAutoCorrelogram::CreateColorAutoCorrelogram(const cv::Mat& img, std::v
                 }
                 //right boudary
                 for (int row = i - d, right_col = j + d; row < i + d; ++row) {
-                    if (right_col > img_H.cols) {
+                    if (right_col >= img_H.cols) {
                         break;
-                    } if (row < 0 || row > img_H.rows) {
+                    } if (row < 0 || row >= img_H.rows) {
                         continue;
                     }
-                    int color_d = img_H.at<int>(row, right_col);
+                    uchar color_uchar = img_H.at<uchar>(row, right_col);
+					int color_d = ((int) color_uchar) / 3;
                     if (color == color_d) {
                         samecolor_num++;
                     }
@@ -92,15 +96,12 @@ void ColorAutoCorrelogram::CreateColorAutoCorrelogram(const cv::Mat& img, std::v
     }
 }
 
-double ColorAutoCorrelogram::CorrelogramMatching(const std::vector<double>& correlogram1, const std::vector<double>& correlogram2)
-{
-    const int distance = 10;
-    const int color_num = 180;
+double ColorAutoCorrelogram::CorrelogramMatching(const std::vector<double>& correlogram1, const std::vector<double>& correlogram2) {
+    const int distance = 5;
+    const int color_num = 60;
     double confidenceValue = 0;
-    for(int i = 0; i < distance; i++)
-    {
-        for(int j = 0; j < color_num; j++)
-        {
+    for(int i = 0; i < distance; i++) {
+        for(int j = 0; j < color_num; j++) {
             double value = (std::abs) ( (correlogram1[i * color_num + j] - correlogram2[i * color_num + j])  /  (1 + correlogram1[i * color_num + j] + correlogram1[i * color_num + j]) );
             confidenceValue = confidenceValue + value;
         }
