@@ -3,7 +3,7 @@
 //  ImageRetrievalEngine
 //
 //  Created by XuRui on 15-2-27.
-//  Copyright (c) 2015å¹´ XuRui. All rights reserved.
+//  Copyright (c) 2015Äê XuRui. All rights reserved.
 //
 
 #ifndef __ImageRetrievalEngine__ImageDescriptor__
@@ -20,5 +20,4 @@ class ColorAutoCorrelogram{
 public:
     void CreateColorAutoCorrelogram(const cv::Mat& img, std::vector<double>& correlogram);
     double CorrelogramMatching(const std::vector<double>& correlogram1, const std::vector<double>& correlogram2);
-
 };
