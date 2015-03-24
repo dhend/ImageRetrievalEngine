@@ -3,7 +3,7 @@
 //  ImageRetrievalEngine
 //
 //  Created by XuRui on 15-3-22.
-//  Copyright (c) 2015Äê XuRui. All rights reserved.
+//  Copyright (c) 2015Ã„Ãª XuRui. All rights reserved.
 //
 
 
@@ -13,8 +13,6 @@
 #include <opencv2/opencv.hpp>
 #include <math.h>
 #include <fstream>
-
-#endif /* defined(__ImageRetrievalEngine__ImageIndexBuilding__) */
 
 class ImageIndexBuilding {
 public:
@@ -26,3 +24,5 @@ private:
 	cv::Mat hsv_img;
 	cv::Mat qua_img;
 };
+
+#endif /* defined(__ImageRetrievalEngine__ImageIndexBuilding__) */
