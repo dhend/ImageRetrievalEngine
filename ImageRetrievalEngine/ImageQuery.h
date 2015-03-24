@@ -3,7 +3,7 @@
 //  ImageRetrievalEngine
 //
 //  Created by XuRui on 15-3-22.
-//  Copyright (c) 2015Äê XuRui. All rights reserved.
+//  Copyright (c) 2015Ã„Ãª XuRui. All rights reserved.
 //
 
 
@@ -13,8 +13,6 @@
 #include <math.h>
 #include <fstream>
 #include <opencv2/opencv.hpp>
-
-#endif /* defined(__ImageRetrievalEngine__ImageQuery__) */
 
 class ImageQuery {
 public:
@@ -29,3 +27,5 @@ private:
 	double data, match_res;
 	std::string file_name;
 };
+
+#endif /* defined(__ImageRetrievalEngine__ImageQuery__) */
